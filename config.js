@@ -10,6 +10,19 @@ window.WR = {
   depop: "illa9",
   venmo: "very_wear_apparel",
 
+  // ---- Google tools (free) ---------------------------------
+  // Paste links here once you've made them. Leave blank to use the built-in versions.
+  google: {
+    // Google Calendar > Create > Appointment schedule > Share > copy the link
+    // (if there is an "Embed" option, paste the iframe's src="..." address instead)
+    bookingUrl: "",
+    // Google Forms > Send > "<>" tab > copy ONLY the address inside src="..."
+    forms: {
+      sipThrift: "",   // the Sip & Thrift invite request form
+      muse: ""         // the Muse inquiry form
+    }
+  },
+
   // ---- where requests go ----------------------------------
   // Option A (recommended): a free form service that emails you every request.
   //   Web3Forms  -> formEndpoint: "https://api.web3forms.com/submit", formAccessKey: "YOUR_KEY"

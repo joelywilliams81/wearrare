@@ -39,16 +39,25 @@ Because every piece is one of one, mark a piece `sold` in `products.js` as soon 
 
 **Venmo and business sales:** Venmo asks sellers to take payment for goods through a Venmo business profile, not a personal one. A business profile also adds purchase protection for buyers. It's worth setting up before real sales.
 
-## 5. Where requests go (orders, bookings, invites, muse inquiries)
+## 5. Google booking and forms (free)
 
-A website with no server cannot email you by itself. Pick one:
+**Appointments: Google Calendar booking page**
+1. Google Calendar > **Create > Appointment schedule**.
+2. Set his open days and hours, the length of a visit, and a buffer between visits. Add a question or two (what are you looking for?).
+3. Open **Share** and copy the booking link. If there is an Embed option, copy the address inside `src="..."` instead.
+4. Paste it into `config.js` as `google.bookingUrl`, commit, and the Book page switches to his live Google calendar. Google blocks double bookings, so no two guests get the same slot.
 
-- **Best: a free form service.** Create a free account at web3forms.com (or formspree.io), copy your key or form URL into `config.js` (`formEndpoint` and `formAccessKey`). Every request then lands in your email.
-- **No setup:** leave them blank. The guest sees their request as text with a button to copy it and open an Instagram DM to @very_wear_apparel. Add `email` in `config.js` to also offer an email button.
+A free Google account gets one booking page, so use one schedule with a "service" question (showroom visit, styling, closet edit, sourcing, muse).
 
-## 6. Appointments
+**Invites and muse inquiries: Google Forms**
+1. Make two forms at forms.google.com. Sip & Thrift: name, Instagram, email, plus one?, drink, anything to know. Muse: name, Instagram, email, what are you (muse, photographer, brand), tell him about it.
+2. In each form: **Responses > bell icon > Get email notifications for new responses**.
+3. **Send > the `<>` tab**, copy the address inside `src="..."`, and paste it into `config.js` under `google.forms.sipThrift` and `google.forms.muse`.
 
-Set real opening hours and slot length in `config.js` (`hours`, `slotMinutes`, `leadHours`, `closedDates`). The booking page shows only open days and future times. Guests submit a **request**, and he confirms by message. Two guests can request the same time slot, so he decides who gets it. Guests can download a calendar file for their request.
+Until you paste links, the built-in versions of all three work, and requests go to his Instagram DM (or to email if you add one in `config.js`).
+
+## 6. Orders
+When someone pays, Venmo notifies him with the amount and the note, which lists the order number and the piece numbers, for example `Wear/Rare WR-4K2QX: WR-001, WR-004`. He messages the buyer to arrange pickup or shipping, and marks those pieces `sold` in `products.js`.
 
 ## 7. Sip & Thrift
 

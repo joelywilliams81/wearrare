@@ -128,13 +128,13 @@
       var fields = { Order: orderId, Name: fd.get("Name"), Contact: fd.get("Contact"), Delivery: fd.get("Delivery"), Address: fd.get("Address"), Notes: fd.get("Notes"),
         Pieces: bag.map(function (id) { var p = byId(id); return p.id + " " + p.name + " (" + money(p.price) + ")"; }).join("; "), Total: money(total), Payment: "Awaiting Venmo to @" + C.venmo };
       var btn = $("button[type=submit]", form); btn.disabled = true; btn.textContent = "Sending...";
-      deliver("New order " + orderId, fields).then(function (res) { showPay(orderId, total, fields, res); });
+      deliver("New order " + orderId, fields).then(function (res) { showPay(orderId, total, fields, res, bag.slice()); });
     });
     checkDlg.showModal();
   }
-  function showPay(orderId, total, fields, res) {
+  function showPay(orderId, total, fields, res, ids) {
     var body = $("[data-body]", checkDlg);
-    var note = "Wear/Rare " + orderId;
+    var note = "Wear/Rare " + orderId + ": " + ids.join(", ");
     var links = venmoLinks(total, note);
     body.innerHTML =
       '<h2 class="disp h2">Pay with Venmo</h2><p class="lede">Order <strong>' + esc(orderId) + "</strong> for <strong>" + money(total) + "</strong>.</p>" +
@@ -225,8 +225,16 @@
   }
 
   /* ---------- generic request forms (Sip & Thrift invite, Muse) ---------- */
+  function googleEmbed(url, title, h) {
+    var open = '<p style="margin:12px 0 0"><a class="btn sm ghost" href="' + esc(url) + '" target="_blank" rel="noopener">Open in a new tab</a></p>';
+    var canFrame = /docs\.google\.com\/forms|calendar\.google\.com/.test(url);
+    var src = url + (/docs\.google\.com\/forms/.test(url) && url.indexOf("embedded=true") < 0 ? (url.indexOf("?") < 0 ? "?" : "&") + "embedded=true" : "");
+    return el('<div class="panel">' + (canFrame ? '<iframe title="' + esc(title) + '" src="' + esc(src) + '" style="width:100%;height:' + h + 'px;border:0;background:#fff" loading="lazy"></iframe>' : '<p>Tap below to open the form.</p>') + open + "</div>");
+  }
   function mountForms() {
     $$("form[data-request]").forEach(function (form) {
+      var gurl = C.google && C.google.forms && C.google.forms[form.getAttribute("data-gform")];
+      if (gurl) { form.replaceWith(googleEmbed(gurl, form.getAttribute("data-request"), 820)); return; }
       form.addEventListener("submit", function (e) {
         e.preventDefault();
         if (form.elements["company"] && form.elements["company"].value) return; // honeypot
@@ -247,6 +255,12 @@
   /* ---------- booking ---------- */
   function mountBooking() {
     var root = $('[data-mount="booking"]'); if (!root) return;
+    var gb = C.google && C.google.bookingUrl;
+    if (gb) {
+      root.appendChild(el('<p class="lede" style="margin-bottom:18px">Pick a time that works. You will get a confirmation, and the showroom address is shared with confirmed guests.</p>'));
+      root.appendChild(googleEmbed(gb, "Book an appointment", 780));
+      return;
+    }
     var S = { service: null, date: null, time: null };
     var wanted = new URLSearchParams(location.search).get("service");
     var svc = C.services || [];

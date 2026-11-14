@@ -157,7 +157,7 @@ muse = head("Muse", "Muse", "Great clothes need a body, a face, and a point of v
 <ul class="list" style="margin-top:18px"><li><span>Styled as a muse</span><span class="mono mute">Looks pulled from the archive</span></li>
 <li><span>Photographers &amp; creatives</span><span class="mono mute">Pieces for your shoot</span></li>
 <li><span>Brands &amp; editorial</span><span class="mono mute">Wardrobe &amp; direction</span></li></ul></div>
-<form class="panel" data-request="Muse inquiry" data-thanks="Thank you. He reviews every muse inquiry personally and will reach out if it's a fit." novalidate>
+<form class="panel" data-gform="muse" data-request="Muse inquiry" data-thanks="Thank you. He reviews every muse inquiry personally and will reach out if it's a fit." novalidate>
 <h3 class="disp h3" style="margin-bottom:14px">Tell him about you</h3>
 <div class="f"><label for="m-name">Name</label><input id="m-name" name="Name" type="text" required data-label="name"></div>
 <div class="f"><label for="m-ig">Instagram</label><input id="m-ig" name="Instagram" type="text" placeholder="@" required data-label="Instagram"></div>
@@ -183,7 +183,7 @@ sip = head("By invitation", "Sip &amp; Thrift", "An evening in the showroom. Tea
 <li><span>Racks by era and mood</span><span class="mono mute">Not by size</span></li>
 <li><span>Find of the night</span><span class="mono mute">One piece, revealed</span></li>
 <li><span>Guests-only pricing</span><span class="mono mute">That night</span></li></ul>
-<form class="panel" data-request="Sip & Thrift invite request" data-thanks="Thank you. Guests are selected and invited. If you're chosen, he'll reach out with the date, time and address." novalidate>
+<form class="panel" data-gform="sipThrift" data-request="Sip & Thrift invite request" data-thanks="Thank you. Guests are selected and invited. If you're chosen, he'll reach out with the date, time and address." novalidate>
 <h3 class="disp h3" style="margin-bottom:14px">Request an invite</h3>
 <div class="f"><label for="s-name">Name</label><input id="s-name" name="Name" type="text" required data-label="name"></div>
 <div class="two"><div class="f"><label for="s-ig">Instagram</label><input id="s-ig" name="Instagram" type="text" placeholder="@" required data-label="Instagram"></div>

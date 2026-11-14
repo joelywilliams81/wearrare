@@ -7,7 +7,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IG, SAGE, DEPOP, VENMO = "very_wear_apparel", "sagejoygold", "illa9", "very_wear_apparel"
 
 NAV = [("shop.html", "Shop"), ("archive.html", "The Archive"), ("stylist.html", "Stylist"),
-       ("muse.html", "Muse"), ("sip-thrift.html", "Sip &amp; Thrift"), ("book.html", "Book")]
+       ("sip-thrift.html", "Sip &amp; Thrift"), ("book.html", "Book")]
 
 FAV = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23faf8f3'/%3E%3Cpath d='M16 3l13 13-13 13L3 16z' fill='%23111'/%3E%3C/svg%3E"
 
@@ -91,8 +91,8 @@ home = f"""
 <div class="sec-head"><h2 class="disp h2">Three ways in</h2></div>
 <div class="grid g3">
 <div class="panel"><span class="mono mute">01 / Shop</span><h3 class="disp h3">The collection</h3><p>One of one pieces, priced and ready. Add to your bag, pay with Venmo, done.</p><a class="btn sm" href="shop.html">Shop now</a></div>
-<div class="panel"><span class="mono mute">02 / Showroom</span><h3 class="disp h3">By appointment</h3><p>Private visits only. Pick a day and a time, he'll confirm, and the racks are yours.</p><a class="btn sm" href="book.html">Book a visit</a></div>
-<div class="panel"><span class="mono mute">03 / Stylist</span><h3 class="disp h3">Style with him</h3><p>Personal styling, closet edits, sourcing, and muse work, from someone fluent in the houses.</p><a class="btn sm" href="stylist.html">See services</a></div>
+<div class="panel"><span class="mono mute">02 / Showroom</span><h3 class="disp h3">By appointment</h3><p>Private visits only, open seven days. Pick a time, browse the racks, and buy on the spot.</p><a class="btn sm" href="book.html">Book a visit</a></div>
+<div class="panel"><span class="mono mute">03 / Stylist</span><h3 class="disp h3">Style with him</h3><p>Personal styling, closet edits, and sourcing from someone fluent in the houses.</p><a class="btn sm" href="stylist.html">See services</a></div>
 </div></div></section>
 
 <section style="padding-top:0"><div class="wrap">
@@ -147,27 +147,7 @@ stylist = head("Services", "Stylist", "He knows the houses, the seasons, and the
 <div class="panel"><span class="mono mute">Fluent in</span><h3 class="disp h3">The houses</h3><p>Chanel, Gucci, Christian Dior, Rick Owens, and the wider world of designer and archive fashion. Ask about a label, a season, a stitch.</p></div>
 <div class="panel"><span class="mono mute">How it works</span><h3 class="disp h3">Request, confirm, meet</h3><p>Choose a service and a time on the booking page. He confirms by message, then you meet at the showroom or online.</p><a class="btn sm" href="book.html">Book now</a></div>
 </div></div></section>"""
-page("stylist.html", "Stylist | Wear / Rare", "Personal styling, closet edits, sourcing and muse collaborations from a stylist fluent in Chanel, Gucci, Dior and Rick Owens.", stylist)
-
-# ---------------------------------------------------------------- MUSE
-muse = head("Muse", "Muse", "Great clothes need a body, a face, and a point of view. Wear / Rare builds looks around people, for shoots, projects, and the pure joy of it.") + """
-<section><div class="wrap"><div class="grid g2" style="align-items:start">
-<div><h2 class="disp h2" style="margin-bottom:14px">Be dressed. Or dress someone.</h2>
-<p>Tell him who you are and what you're making. Muse work can mean being styled head to toe from the archive, or bringing him in to dress your project, shoot, or show.</p>
-<ul class="list" style="margin-top:18px"><li><span>Styled as a muse</span><span class="mono mute">Looks pulled from the archive</span></li>
-<li><span>Photographers &amp; creatives</span><span class="mono mute">Pieces for your shoot</span></li>
-<li><span>Brands &amp; editorial</span><span class="mono mute">Wardrobe &amp; direction</span></li></ul></div>
-<form class="panel" data-gform="muse" data-request="Muse inquiry" data-thanks="Thank you. He reviews every muse inquiry personally and will reach out if it's a fit." novalidate>
-<h3 class="disp h3" style="margin-bottom:14px">Tell him about you</h3>
-<div class="f"><label for="m-name">Name</label><input id="m-name" name="Name" type="text" required data-label="name"></div>
-<div class="f"><label for="m-ig">Instagram</label><input id="m-ig" name="Instagram" type="text" placeholder="@" required data-label="Instagram"></div>
-<div class="f"><label for="m-email">Email</label><input id="m-email" name="Email" type="email"></div>
-<div class="f"><label for="m-type">I am</label><select id="m-type" name="Type"><option>Interested in being styled as a muse</option><option>A photographer or creative with a project</option><option>A brand or editorial team</option></select></div>
-<div class="f"><label for="m-note">Tell him about it</label><textarea id="m-note" name="About"></textarea></div>
-<input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
-<p class="err" hidden></p><button class="btn" type="submit">Send</button></form>
-</div></div></section>"""
-page("muse.html", "Muse | Wear / Rare", "Muse styling and creative collaborations from the Wear / Rare archive.", muse)
+page("stylist.html", "Stylist | Wear / Rare", "Personal styling, closet edits and sourcing from a stylist fluent in Chanel, Gucci, Dior and Rick Owens.", stylist)
 
 # ---------------------------------------------------------------- SIP & THRIFT
 sip = head("By invitation", "Sip &amp; Thrift", "An evening in the showroom. Tea, drinks, music, and racks of rare pieces, with a room of people who care what they wear.") + """
@@ -206,7 +186,7 @@ about = head("About", "The Holy Haberdashery", "Wear / Rare is a vintage curatio
 <section><div class="wrap"><div class="grid g2" style="align-items:start">
 <div><p>Vintage is not a trend here. It is an archive. Every piece is sourced, studied, and chosen for what it is: the hand that made it, the decade it's from, and the way it carries itself.</p>
 <p>He knows the industry deeply, especially high fashion and designer garments from houses like Chanel, Gucci, Christian Dior and Rick Owens. That knowledge shapes what comes into the collection, how it's presented, and how he styles the people who wear it.</p>
-<p>Beyond selling, there's styling, muse work, and Sip &amp; Thrift evenings in the showroom, because clothes are better when people get to love them in the same room.</p></div>
+<p>Beyond selling, there's styling, closet edits, and Sip &amp; Thrift evenings in the showroom, because clothes are better when people get to love them in the same room.</p></div>
 <div class="panel"><span class="mono mute">Find him</span>
 <ul class="list" style="margin-top:12px">
 <li><span>Instagram</span><a href="https://instagram.com/{IG}" target="_blank" rel="noopener">@{IG}</a></li>

@@ -224,7 +224,7 @@
     });
   }
 
-  /* ---------- generic request forms (Sip & Thrift invite, Muse) ---------- */
+  /* ---------- generic request forms (Sip & Thrift invite) ---------- */
   function googleEmbed(url, title, h) {
     var open = '<p style="margin:12px 0 0"><a class="btn sm ghost" href="' + esc(url) + '" target="_blank" rel="noopener">Open in a new tab</a></p>';
     var canFrame = /docs\.google\.com\/forms|calendar\.google\.com/.test(url);
@@ -257,7 +257,7 @@
     var root = $('[data-mount="booking"]'); if (!root) return;
     var gb = C.google && C.google.bookingUrl;
     if (gb) {
-      root.appendChild(el('<p class="lede" style="margin-bottom:18px">Pick a time that works. You will get a confirmation, and the showroom address is shared with confirmed guests.</p>'));
+      root.appendChild(el('<p class="lede" style="margin-bottom:18px">Pick a time that works. You will get a confirmation, and the showroom address is shared with confirmed guests. Booking a Closet Edit? Add the address he should travel to in the form.</p>'));
       root.appendChild(googleEmbed(gb, "Book an appointment", 780));
       return;
     }
@@ -278,7 +278,7 @@
       var earliest = now.getTime() + (C.leadHours || 0) * 3600 * 1000;
       while (t.getTime() + C.slotMinutes * 60000 <= end.getTime()) {
         if (t.getTime() >= earliest) out.push(new Date(t));
-        t = new Date(t.getTime() + C.slotMinutes * 60000);
+        t = new Date(t.getTime() + (C.slotStep || C.slotMinutes) * 60000);
       }
       return out;
     }
@@ -297,6 +297,7 @@
       '<div class="f"><label for="b-contact">Phone, email or Instagram</label><input id="b-contact" name="Contact" type="text" required data-label="contact"></div></div>' +
       '<div class="two"><div class="f"><label for="b-guests">Guests</label><select id="b-guests" name="Guests"></select></div>' +
       '<div class="f"><label for="b-email">Email (for your calendar invite)</label><input id="b-email" name="Email" type="email" autocomplete="email"></div></div>' +
+      '<div class="f" data-travel hidden><label for="b-addr">Address he will travel to</label><textarea id="b-addr" name="Travel address" placeholder="Street, city, apartment or gate details"></textarea><p class="hint">He comes to you for this service. This goes to him only.</p></div>' +
       '<div class="f"><label for="b-notes">What are you looking for?</label><textarea id="b-notes" name="Notes" placeholder="Labels, eras, an occasion, sizes..."></textarea></div>' +
       '<input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">' +
       '<p class="err" data-err hidden></p><button class="btn" type="submit">Request this appointment</button>' +
@@ -313,6 +314,7 @@
       });
       var cur = svc.filter(function (s) { return s.id === S.service; })[0];
       $("[data-blurb]", root).textContent = cur ? cur.blurb + (cur.price ? "  " + cur.price : "") : "";
+      var tr = $("[data-travel]", root); if (tr) tr.hidden = !(cur && cur.travel);
     }
     function drawDays() {
       var box = $("[data-days]", root); if (!box) return; box.innerHTML = "";
@@ -346,10 +348,12 @@
       var err = $("[data-err]", root), name = form.elements["Name"].value.trim(), contact = form.elements["Contact"].value.trim();
       if (days.length && (!S.date || !S.time)) { err.hidden = false; err.textContent = "Pick a day and a time."; return; }
       if (!name || !contact) { err.hidden = false; err.textContent = "Add your name and a way to reach you."; return; }
-      err.hidden = true;
       var cur = svc.filter(function (s) { return s.id === S.service; })[0] || { name: "Appointment" };
+      var addr = form.elements["Travel address"].value.trim();
+      if (cur.travel && !addr) { err.hidden = false; err.textContent = "Add the address he should travel to."; return; }
+      err.hidden = true;
       var when = S.time ? DOW[S.time.getDay()] + " " + MON[S.time.getMonth()] + " " + S.time.getDate() + ", " + fmtTime(S.time) : "";
-      var fields = { Service: cur.name, When: when, Name: name, Contact: contact, Email: form.elements["Email"].value, Guests: form.elements["Guests"].value, Notes: form.elements["Notes"].value, Status: "REQUESTED - confirm with guest" };
+      var fields = { Service: cur.name, When: when, Name: name, Contact: contact, Email: form.elements["Email"].value, Guests: form.elements["Guests"].value, "Travel address": cur.travel ? addr : "", Notes: form.elements["Notes"].value, Status: "REQUESTED - confirm with guest" };
       var btn = $("button[type=submit]", form); btn.disabled = true; btn.textContent = "Sending...";
       deliver("Appointment request: " + cur.name + (when ? " - " + when : ""), fields).then(function (res) {
         var cal = "";

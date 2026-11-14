@@ -18,8 +18,7 @@ window.WR = {
     bookingUrl: "",
     // Google Forms > Send > "<>" tab > copy ONLY the address inside src="..."
     forms: {
-      sipThrift: "",   // the Sip & Thrift invite request form
-      muse: ""         // the Muse inquiry form
+      sipThrift: ""    // the Sip & Thrift invite request form
     }
   },
 
@@ -39,29 +38,28 @@ window.WR = {
   leadHours: 24,          // earliest bookable time from now
   daysAhead: 42,          // how far ahead people can request
   maxGuests: 4,
-  // Opening hours by weekday (0 = Sunday ... 6 = Saturday), 24h "HH:MM".
-  // null = closed. THESE ARE PLACEHOLDERS - set his real hours.
+  slotStep: 30,           // appointments can start every 30 minutes
+  // Opening hours by weekday (0 = Sunday ... 6 = Saturday), 24h "HH:MM". null = closed.
   hours: {
-    0: null,
-    1: null,
-    2: null,
-    3: null,
-    4: ["12:00", "18:00"],
-    5: ["12:00", "18:00"],
-    6: ["11:00", "17:00"]
+    0: ["12:00", "21:30"],
+    1: ["12:00", "21:30"],
+    2: ["12:00", "21:30"],
+    3: ["12:00", "21:30"],
+    4: ["12:00", "21:30"],
+    5: ["12:00", "21:30"],
+    6: ["12:00", "21:30"]
   },
   closedDates: [],        // e.g. ["2026-12-25", "2026-12-31"]
 
   // ---- services (shown on Stylist + Book pages) -------------
+  // travel: true = he goes to the guest, so the booking asks for an address
   // price: leave "" to show "Inquire"
   services: [
-    { id: "showroom", name: "Showroom Visit", blurb: "Private shopping in the showroom. Browse the racks with him on hand.", price: "" },
+    { id: "showroom", name: "Showroom Visit", blurb: "Private shopping in the showroom. Browse the racks with him on hand, and buy pieces right there (Venmo works).", price: "" },
     { id: "styling", name: "Styling Session", blurb: "One-on-one styling for a look, a season, or a whole identity.", price: "" },
-    { id: "closet", name: "Closet Edit", blurb: "Go through what you own. Keep, restyle, release, and find the gaps.", price: "" },
-    { id: "sourcing", name: "Sourcing Request", blurb: "Looking for a specific label, era, or grail? He hunts it.", price: "" },
-    { id: "muse", name: "Muse Collaboration", blurb: "Shoots, looks, and creative projects built around a muse.", price: "" }
+    { id: "closet", name: "Closet Edit", blurb: "He comes to you. Go through what you own: keep, restyle, release, and find the gaps.", price: "", travel: true },
+    { id: "sourcing", name: "Sourcing Request", blurb: "Looking for a specific label, era, or grail? He hunts it.", price: "" }
   ],
-
   // ---- Sip & Thrift ----------------------------------------
   sipThrift: {
     date: "",             // e.g. "Saturday, December 13"

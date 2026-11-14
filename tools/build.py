@@ -196,4 +196,54 @@ about = head("About", "The Holy Haberdashery", "Wear / Rare is a vintage curatio
 <a class="btn sm" href="book.html">Book an appointment</a></div>
 </div></div></section>"""
 page("about.html", "About | Wear / Rare", "About Wear / Rare, a vintage curation practice treating clothing as art.", about)
+
+# ---------------------------------------------------------------- LINKS (landing page for the one QR card)
+LINKS = [
+    ("Pay with Venmo", f"@{VENMO}", f"https://venmo.com/u/{VENMO}", True),
+    ("Follow on Instagram", f"@{IG}", f"https://instagram.com/{IG}", True),
+    ("Shop on Depop", f"depop.com/{DEPOP}", f"https://www.depop.com/{DEPOP}", True),
+    ("Shop the collection", "One of one pieces", "shop.html", False),
+    ("Book an appointment", "Open 7 days, 12 to 9:30", "book.html", False),
+    ("Sip &amp; Thrift", "Request an invite", "sip-thrift.html", False),
+]
+rows = "".join(
+    f'<a class="lk" href="{h}"{" target=\"_blank\" rel=\"noopener\"" if ext else ""}><span class="disp">{t}</span><span class="mono mute">{s}</span><span class="arrow" aria-hidden="true">&rarr;</span></a>'
+    for t, s, h, ext in LINKS)
+links_html = f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wear / Rare | All links</title>
+<meta name="description" content="Pay, follow, shop and book with Wear / Rare.">
+<meta name="theme-color" content="#faf8f3">
+<link rel="icon" href="{FAV}">
+<link rel="stylesheet" href="styles.css">
+<style>
+.lp {{ max-width: 520px; margin: 0 auto; padding: 28px 18px 44px; text-align: center; }}
+.lp .logo {{ font-size: clamp(60px, 18vw, 96px); line-height: .9; margin: 6px 0 6px; }}
+.lp .tag {{ margin-bottom: 22px; }}
+.lks {{ display: grid; gap: 12px; margin-top: 8px; text-align: left; }}
+.lk {{ display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: center; border: 1px solid var(--ink); padding: 16px 18px; text-decoration: none; background: var(--paper); position: relative; }}
+.lk::after {{ content: ""; position: absolute; inset: 4px; border: 1px solid var(--ink); opacity: .35; pointer-events: none; }}
+.lk .disp {{ font-size: 28px; grid-column: 1; }}
+.lk .mono {{ grid-column: 1; }}
+.lk .arrow {{ grid-column: 2; grid-row: 1 / span 2; font-size: 24px; }}
+.lk:hover, .lk:focus-visible {{ background: var(--ink); color: var(--paper); }}
+.lk:hover .mute {{ color: #cfcabd; }}
+</style>
+</head>
+<body>
+<main class="lp">
+<span class="mono mute">Vintage curation &middot; Appointment only</span>
+<h1 class="logo shoulders">Wear / Rare</h1>
+<div class="tag mono mute">The Holy Haberdashery</div>
+<hr class="rule2" style="margin-bottom:20px">
+<div class="lks">{rows}</div>
+<p class="mono mute" style="margin-top:28px">Every piece is one of one</p>
+</main>
+</body>
+</html>
+"""
+open(os.path.join(ROOT, "links.html"), "w", encoding="utf-8").write(links_html)
 print("built pages")

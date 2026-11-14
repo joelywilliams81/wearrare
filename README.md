@@ -37,7 +37,7 @@ Pieces go into a bag. At checkout the buyer enters details, then taps **Open Ven
 
 Because every piece is one of one, mark a piece `sold` in `products.js` as soon as it is paid for.
 
-**Venmo and business sales:** Venmo asks sellers to take payment for goods through a Venmo business profile, not a personal one. A business profile also adds purchase protection for buyers. It's worth setting up before real sales.
+**Venmo and business sales:** Venmo has a separate business profile for sellers. Reported fees are 1.9% + $0.10 per payment received (first 30 days free). It may come with its own @username, so if he switches, update `venmo` in `config.js`.
 
 ## 5. Google booking and forms (free)
 
